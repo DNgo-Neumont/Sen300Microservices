@@ -1,0 +1,16 @@
+package dngo.neumont.basket;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/basket")
+public class BasketController {
+    @Autowired
+    ItemJPA itemJpa;
+
+
+
+
+}
