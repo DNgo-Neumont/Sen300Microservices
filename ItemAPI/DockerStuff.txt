@@ -1,0 +1,22 @@
+Create network
+	docker network create netSEN300 
+
+127.0.0.1,1433
+sa
+abc123!!@
+
+Create container 
+	SQL Server:
+		docker run --name ItemServerDB -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=abc123!!@" --net netSEN300 -p 3000:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+
+Dockerize dotnet project
+	FROM mcr.microsoft.com/dotnet/aspnet:6.0
+	WORKDIR /app
+	COPY bin/Release/net6.0/publish/ .
+	ENTRYPOINT ["dotnet", "*AppDLL*.dll"]
+	
+	dotnet publish -c Release
+	
+	docker build -t appnamealllowercase:1
+	
+	docker run -d -p 9000:80 --name firstwebapp -d --net netSEN300 firstwebapp:1
