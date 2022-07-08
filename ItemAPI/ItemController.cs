@@ -25,14 +25,14 @@ namespace Controllers
         [Route("getInventory")]
         public async Task<ActionResult<List<Item>>> getAllQuests()
         {
-            return await _db.Items.ToListAsync();
+            return await _db.itemTable.ToListAsync();
         }
         
         [HttpGet]
         [Route("getItem/{id}")]
         public async Task<ActionResult<Item>> getQuest(long id)
         {
-            var quest = await _db.Items.FindAsync(id);
+            var quest = await _db.itemTable.FindAsync(id);
             if (quest == null) {
                 return NotFound();
             }
@@ -42,7 +42,7 @@ namespace Controllers
         [HttpPost]
         public async Task<IResult> createQuest(Item quest)
         {
-            _db.Items.Add(quest);
+            _db.itemTable.Add(quest);
             await _db.SaveChangesAsync();
             return Results.Created($"/{quest.Id}", quest);
         }
@@ -51,7 +51,7 @@ namespace Controllers
         [Route("updateItem/")]
         public async Task<IResult> updateQuest(Item item)
         {
-            var currItem = await _db.Items.FindAsync(item.Id);
+            var currItem = await _db.itemTable.FindAsync(item.Id);
             if (currItem != null) {
                 currItem.Title = item.Title;
                 currItem.unitPrice = item.unitPrice;
@@ -65,8 +65,8 @@ namespace Controllers
         [HttpDelete]
         [Route("deleteQuest/{id}")]
         public async Task<IResult> deleteQuest(long id) {
-            if (await _db.Items.FindAsync(id) is Item quest) {
-                _db.Items.Remove(quest);
+            if (await _db.itemTable.FindAsync(id) is Item quest) {
+                _db.itemTable.Remove(quest);
                 await _db.SaveChangesAsync();
                 return Results.Ok(quest);
             }
