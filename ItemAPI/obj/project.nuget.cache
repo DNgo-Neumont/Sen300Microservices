@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tjVUXKXH9LZqSHPY/V2vePHmWc9fzirVOtDR9nkCl/R8QmU+/XPIyZ0xmdEKr4QIKkC2lj5ejDX0WBQE/93Jvg==",
+  "dgSpecHash": "KB4EmD+Y+J1bwpqGK0YdW9DNnGggLCjfm34wSxCqHj+2oXfpltAKjxjE4zpLCuUl5Aj7fFpuUUW4FVCtklyGvQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\dlarmore\\Desktop\\Summer 2022\\SEN300\\Tinys-Parlour\\ItemAPI\\ItemAPI.csproj",
+  "projectFilePath": "C:\\Users\\dlarmore\\Documents\\Sen300Microservices\\ItemAPI\\ItemAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dlarmore\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\dlarmore\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",

@@ -18,24 +18,18 @@ namespace Controllers
         [Route("test")]
         public ActionResult<string> test()
         {
-            return "Hark netizen! The questboard is on-line!";
+            return "Hello netizen! The inventory is on-line!";
         }
 
         [HttpGet]
         [Route("getInventory")]
-        public async Task<ActionResult<List<ItemDB>>> getAllQuests()
+        public async Task<ActionResult<List<Item>>> getAllQuests()
         {
             return await _db.Items.ToListAsync();
         }
         
         [HttpGet]
-        [Route("getCompleted")]
-        public async Task<List<Item>> getAllCompletedQuests() {
-            return await _db.Items.Where(t => t.IsComplete == true).ToListAsync();
-        }
-
-        [HttpGet]
-        [Route("getQuest/{id}")]
+        [Route("getItem/{id}")]
         public async Task<ActionResult<Item>> getQuest(long id)
         {
             var quest = await _db.Items.FindAsync(id);
@@ -54,15 +48,16 @@ namespace Controllers
         }
 
         [HttpPut]
-        [Route("updateQuest/")]
-        public async Task<IResult> updateQuest(Items quest)
+        [Route("updateItem/")]
+        public async Task<IResult> updateQuest(Item item)
         {
-            var currQuest = await _db.Items.FindAsync(quest.Id);
-            if (currQuest != null) {
-                currQuest.Name = quest.Name;
-                currQuest.IsComplete = quest.IsComplete;
+            var currItem = await _db.Items.FindAsync(item.Id);
+            if (currItem != null) {
+                currItem.Title = item.Title;
+                currItem.unitPrice = item.unitPrice;
+                currItem.Description = item.Description;
                 await _db.SaveChangesAsync();
-                return Results.Created($"/{quest.Id}", quest);
+                return Results.Created($"/{item.Id}", item);
             }
             return Results.NoContent();
         }
