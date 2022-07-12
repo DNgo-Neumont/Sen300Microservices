@@ -32,6 +32,7 @@ app.MapPost("/", (Card card) => {
                     }
                 }
                 string sumCheckValues = (checkValues.Sum() * 9).ToString();
+                
                 if(sumCheckValues[sumCheckValues.Length - 1].Equals(checkDigit)) {
                     return true;
                 }
