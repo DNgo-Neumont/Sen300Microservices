@@ -6,7 +6,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-bool properValidation = true;
+bool properValidation = false;
 
 app.MapPost("/", (Card card) => {
     DateOnly today = new DateOnly();
