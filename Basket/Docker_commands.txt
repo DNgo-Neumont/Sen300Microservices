@@ -1,0 +1,5 @@
+Run in command prompt of choice - the compiled files and dockerfile will handle the rest.
+
+docker build -t basketapi .
+ 
+docker run --name basketapi --net netSEN300 -p 5001:8080 basketapi

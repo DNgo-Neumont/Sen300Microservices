@@ -19,7 +19,6 @@ public class BasketController {
             method = RequestMethod.PUT)
     public void addItemToBasket(@RequestBody JsonNode item){
         ItemWithAmount itemToAdd = new ItemWithAmount();
-        System.out.println(item);
         itemToAdd.setContainedItem(newItemJpa.findItemById(item.get("id").asLong()));
         itemToAdd.setQuantity((item.get("quantity").asInt()));
         if(itemToAdd.getContainedItem() != null){
@@ -33,18 +32,18 @@ public class BasketController {
             value = "/removeItem",
             method = RequestMethod.DELETE
     )
-    public void removeItemFromBasket(@RequestBody JSONObject item){
-        ItemWithAmount itemToRemove = basket.getItems().stream().filter(items -> items.getContainedItem().getId() == (Integer) item.get("id")).findFirst().orElse(null);
+    public void removeItemFromBasket(@RequestBody JsonNode item){
+        ItemWithAmount itemToRemove = basket.getItems().stream().filter(items -> items.getContainedItem().getId() == item.get("id").asLong()).findFirst().orElse(null);
         basket.getItems().remove(itemToRemove);
     }
     @RequestMapping(
             value = "/updateItem",
             method = RequestMethod.PATCH
     )
-    public void updateItemInBasket(@RequestBody JSONObject item){
-        ItemWithAmount itemToUpdate = basket.getItems().stream().filter(items -> items.getContainedItem().getId() == (Integer) item.get("id")).findFirst().orElse(null);
+    public void updateItemInBasket(@RequestBody JsonNode item){
+        ItemWithAmount itemToUpdate = basket.getItems().stream().filter(items -> items.getContainedItem().getId() ==  item.get("id").asLong()).findFirst().orElse(null);
         int indexOf = basket.getItems().indexOf(itemToUpdate);
-        basket.getItems().get(indexOf).setQuantity((Integer) item.get("quantity"));
+        basket.getItems().get(indexOf).setQuantity(item.get("quantity").asInt());
     }
 
     @RequestMapping(
