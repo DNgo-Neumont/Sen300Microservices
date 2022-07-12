@@ -1,12 +1,15 @@
 package dngo.neumont.basket;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/basket")
 public class BasketController {
 
+    @Autowired
     ItemJPA newItemJpa;
 
     Basket basket = new Basket();
@@ -14,11 +17,11 @@ public class BasketController {
     @RequestMapping(
             value = "/addItem",
             method = RequestMethod.PUT)
-    public void addItemToBasket(@RequestBody JSONObject item){
+    public void addItemToBasket(@RequestBody JsonNode item){
         ItemWithAmount itemToAdd = new ItemWithAmount();
-
-        itemToAdd.setContainedItem(newItemJpa.findItemById((Long) item.get("id")));
-        itemToAdd.setQuantity((Integer) item.get("quantity"));
+        System.out.println(item);
+        itemToAdd.setContainedItem(newItemJpa.findItemById(item.get("id").asLong()));
+        itemToAdd.setQuantity((item.get("quantity").asInt()));
         if(itemToAdd.getContainedItem() != null){
             basket.addItem(itemToAdd);
         }else{
