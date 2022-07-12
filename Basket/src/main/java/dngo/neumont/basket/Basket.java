@@ -1,28 +1,30 @@
 package dngo.neumont.basket;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Basket {
-    Map<Integer, Integer> items;
-
+    List<ItemWithAmount> items;
     public Basket() {
-        this.items = new HashMap<Integer, Integer>();
+        this.items = new ArrayList<>();
     }
 
-    public void addItem(int itemId, int itemQuantity){
-        items.put(itemId, itemQuantity);
+    public void addItem(ItemWithAmount item){
+        items.add(item);
     }
 
-    public void updateItem(int itemId, int itemQuantity){
-        items.put(itemId, itemQuantity);
+    //If you want to replace a stored item, do this.
+    public void updateItem(int position, ItemWithAmount item){
+        items.set(position, item);
     }
 
     public void removeItem(int itemId){
         items.remove(itemId);
     }
 
-    public Map<Integer, Integer> getItems(){
+    public List<ItemWithAmount> getItems(){
         return items;
     }
 
