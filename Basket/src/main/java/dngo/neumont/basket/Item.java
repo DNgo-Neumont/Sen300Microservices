@@ -1,20 +1,25 @@
 package dngo.neumont.basket;
 
-import org.springframework.data.relational.core.mapping.Table;
 
+
+import javax.persistence.*;
+
+@Entity
 @Table(name="itemTable")
 public class Item {
-    private long Id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String Title;
     private String Description;
-    private float unitPrice;
+    private Float unitPrice;
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getTitle() {
