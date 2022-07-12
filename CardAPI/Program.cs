@@ -23,7 +23,7 @@ app.MapPost("/", (Card card) => {
             if (checkString.Length >= 13 && checkString.Length <= 19) {
                 int checkDigit = checkValues[checkValues.Count - 1];
                 for (int i = 0; i < checkValues.Count; i++) {
-                    if (i % 2 != 0) {
+                    if (i % 2 != ((checkValues.Count - 1) % 2)) {
                         int num = checkValues[i] * 2;
                         if (i > 9) {
                             num = 1  + (num - 10);
@@ -32,7 +32,7 @@ app.MapPost("/", (Card card) => {
                     }
                 }
                 string sumCheckValues = (checkValues.Sum() * 9).ToString();
-                
+
                 if(sumCheckValues[sumCheckValues.Length - 1].Equals(checkDigit)) {
                     return true;
                 }
