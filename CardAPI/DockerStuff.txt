@@ -11,4 +11,4 @@ Dockerize dotnet project
 	
 	docker build -t cardapi:1 .
 	
-	docker run -d -p 9001:80 --name cardapi -d --net netSEN300 cardapi:1 .
+	docker run -d -p 9002:80 --name cardapi -d --net netSEN300 cardapi:1 .
