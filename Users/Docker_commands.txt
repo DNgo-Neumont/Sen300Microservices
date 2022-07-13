@@ -1,0 +1,7 @@
+Run in command prompt of choice - the compiled files and dockerfile will handle the rest.
+
+docker build -t userapi .
+ 
+docker run --name userapi --net netSEN300 -p 5003:8080 userapi
+
+run the included init_sql script in your brand new database.
