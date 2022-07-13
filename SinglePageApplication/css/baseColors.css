@@ -1,0 +1,48 @@
+:root {
+    --bg-light: #FFFAF0;
+    --text-light: #08001A;
+
+    --pink: #EF476F;
+    --babyBlue: #118AB2;
+    --maybeBlue: #146493;
+}
+
+@media(prefers-color-scheme:dark) {
+    :root {
+        --text: var(--bg-light);
+        --background: var(--text-light);
+    }
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+}
+
+h3 {
+    color: var(--pink);
+}
+
+.btnColorP {
+    color: var(--bg-light);
+    background-color: var(--pink);
+}
+
+.btnColorPInvert{
+    color: var(--pink);
+    background-color: var(--bg-light);
+}
+
+.btnRound {
+    border-radius: 10%;
+}
+
+.btnColorB {
+    color: var(--bg-light);
+    background-color: var(--babyBlue);
+}
+
+.btnColorBInvert{
+    color: var(--babyBlue);
+    background-color: var(--bg-light);
+}
