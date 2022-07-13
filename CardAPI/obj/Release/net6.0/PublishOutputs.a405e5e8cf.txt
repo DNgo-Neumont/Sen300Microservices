@@ -1,0 +1,11 @@
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\publish\CardAPI.exe
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\publish\appsettings.Development.json
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\publish\appsettings.json
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\publish\CardAPI.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\publish\CardAPI.deps.json
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\publish\CardAPI.runtimeconfig.json
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\publish\CardAPI.pdb
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\publish\Microsoft.EntityFrameworkCore.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\publish\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\publish\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\publish\Microsoft.Extensions.Caching.Memory.dll

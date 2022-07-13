@@ -1,0 +1,14 @@
+Create network
+	docker network create netSEN300 
+
+Dockerize dotnet project
+	FROM mcr.microsoft.com/dotnet/aspnet:6.0
+	WORKDIR /app
+	COPY bin/Release/net6.0/publish/ .
+	ENTRYPOINT ["dotnet", "*AppDLL*.dll"]
+	
+	dotnet publish -c Release
+	
+	docker build -t cardapi:1 .
+	
+	docker run -d -p 9002:80 --name cardapi -d --net netSEN300 cardapi:1 .

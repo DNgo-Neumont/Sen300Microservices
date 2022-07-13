@@ -19,4 +19,4 @@ Dockerize dotnet project
 	
 	docker build -t itemserverdb:1
 	
-	docker run -d -p 9000:80 --name itemserverdb -d --net netSEN300 itemserverdb:1 .
+	docker run -d -p 9001:80 --name itemserverdb -d --net netSEN300 itemserverdb:1 .
