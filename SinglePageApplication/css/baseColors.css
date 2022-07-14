@@ -1,6 +1,8 @@
 :root {
     --bg-light: #FFFAF0;
-    --text-light: #08001A;
+    --bg-light2: #ede4d6;
+    --text-light: #2a2633;
+    --text-light2: #544b59;
 
     --pink: #EF476F;
     --babyBlue: #118AB2;
@@ -11,7 +13,23 @@
     :root {
         --text: var(--bg-light);
         --background: var(--text-light);
+        --background2: var(--text-light2);
     }
+}
+
+@media(prefers-color-scheme:light) {
+    :root {
+        --text: var(--text-light);
+        --background: var(--bg-light);
+        --background2: var(--bg-light2);
+    }
+}
+
+.backgroundDat {
+    background-color: var(--background2);
+    color: var(--text);
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 body {
@@ -19,8 +37,16 @@ body {
     color: var(--text);
 }
 
-h3 {
+p, h2, h4, h5, h6 {
+    color: var(--text);
+}
+
+h3, h1 {
     color: var(--pink);
+}
+
+.basic {
+    color: var(--text);
 }
 
 .btnColorP {
