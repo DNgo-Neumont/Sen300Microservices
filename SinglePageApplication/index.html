@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bootstrap demo</title>
+        <title>S-Mart | Shop Here</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         
@@ -38,7 +38,7 @@
                     var allStuff;
 
                     const request = new XMLHttpRequest();
-                    request.open("GET","http://localhost:8083/anyone/event/json");
+                    request.open("GET","/getInventory");
                     request.send();
                     request.onload = () => {s
                         allStuff = request.responseText;
@@ -125,6 +125,15 @@
                         var idProduct = buttonClickedCart.parentElement.parentElement.parentElement.id;
                         var quantityProduct = buttonClickedCart.parentElement.parentElement.parentElement.children[2].children[0].children[1].value;
 
+                        const request = new XMLHttpRequest(); 
+			            var theUrl = "/addItem";
+			            request.open("POST", theUrl);
+			            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			            request.send(JSON.stringify({"id": parseLong(idProduct), "quantity": parseInt(quantityProduct)}));
+			            request.onload = ()=> {
+				            console.log(request.responseText);
+				            document.querySelector("#myResponse").innerHTML = request.responseText;
+			            };
                     })
                 }
             }
