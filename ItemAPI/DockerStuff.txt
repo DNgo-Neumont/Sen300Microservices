@@ -7,7 +7,7 @@ abc123!!@
 
 Create container 
 	SQL Server:
-		docker run --name ItemServerDB -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=abc123!!@" --net netSEN300 -p 3000:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+		docker run --name ItemSQLDB -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=abc123!!@" --net netSEN300 -p 3000:1433 -d mcr.microsoft.com/mssql/server:2019-latest
 
 Dockerize dotnet project
 	FROM mcr.microsoft.com/dotnet/aspnet:6.0
