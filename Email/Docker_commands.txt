@@ -1,0 +1,5 @@
+Run in command prompt of choice - the compiled files and dockerfile will handle the rest.
+
+docker build -t emailapi .
+ 
+docker run --name emailapi --net netSEN300 -p 5004:8080 emailapi
