@@ -1,5 +1,9 @@
 Run in command prompt of choice - the compiled files and dockerfile will handle the rest.
 
+Run this command first.
+docker run --name UserSQLDB -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=abc123!!@" --net netSEN300 -p 3001:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+
+Run these second, in order.
 docker build -t userapi .
  
 docker run --name userapi --net netSEN300 -p 5003:8080 userapi
