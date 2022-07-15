@@ -35,13 +35,13 @@
                     productRow.classList.add("justify-content-md-center");
                     productRow.style = "text-align: center; padding-top: 20px;"
 
-                    var allStuff;
-
                     const request = new XMLHttpRequest();
-                    request.open("GET","/getInventory");
+                    request.open("GET","http://localhost:5000/itemAPI/getInventory");
+                    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
                     request.send();
                     request.onload = () => {s
-                        allStuff = request.responseText;
+                        var allStuff = JSON.parse(request.responseText);
+                        console.log(allStuff);
                     }
                     
                     for(var j = 0; j < 4; j++) {
