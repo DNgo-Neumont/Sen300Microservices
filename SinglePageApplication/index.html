@@ -39,7 +39,7 @@
                     request.open("GET","http://localhost:5000/itemAPI/getInventory");
                     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
                     request.send();
-                    request.onload = () => {s
+                    request.onload = () => {
                         var allStuff = JSON.parse(request.responseText);
                         console.log(allStuff);
                     }
@@ -123,13 +123,18 @@
                     buttonAddToCart.addEventListener('click', function(event) {
                         var buttonClickedCart = event.target;
                         var idProduct = buttonClickedCart.parentElement.parentElement.parentElement.id;
-                        var quantityProduct = buttonClickedCart.parentElement.parentElement.parentElement.children[2].children[0].children[1].value;
+                        var quantityProduct = buttonClickedCart.parentElement.parentElement.parentElement.children[2].children[0].children[1];
 
                         const request = new XMLHttpRequest(); 
-			            var theUrl = "/addItem";
-			            request.open("POST", theUrl);
+			            var theUrl = "http://localhost:5001/basket/addItem";
+			            request.open("PUT", theUrl);
+                        let hostname = location.hostname;
+                        console.log(hostname);
+                        console.log(idProduct);
 			            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-			            request.send(JSON.stringify({"id": parseLong(idProduct), "quantity": parseInt(quantityProduct)}));
+                        request.setRequestHeader('Access-Control-Allow-Origin',hostname);
+			            request.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+                        request.send(JSON.stringify({"id": parseInt(idProduct), "quantity": parseInt(quantityProduct)}));
 			            request.onload = ()=> {
 				            console.log(request.responseText);
 				            document.querySelector("#myResponse").innerHTML = request.responseText;
