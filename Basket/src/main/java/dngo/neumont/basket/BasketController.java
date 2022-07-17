@@ -3,10 +3,13 @@ package dngo.neumont.basket;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/basket")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class BasketController {
 
     @Autowired
@@ -14,6 +17,13 @@ public class BasketController {
 
     Basket basket = new Basket();
 
+    @RequestMapping(
+            value = "/addItem",
+            method = RequestMethod.OPTIONS
+    )
+    public ResponseEntity handleAdd() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
     @RequestMapping(
             value = "/addItem",
             method = RequestMethod.PUT)
@@ -30,11 +40,26 @@ public class BasketController {
 
     @RequestMapping(
             value = "/removeItem",
+            method = RequestMethod.OPTIONS
+    )
+    public ResponseEntity handleRemove() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/removeItem",
             method = RequestMethod.DELETE
     )
     public void removeItemFromBasket(@RequestBody JsonNode item){
         ItemWithAmount itemToRemove = basket.getItems().stream().filter(items -> items.getContainedItem().getId() == item.get("id").asLong()).findFirst().orElse(null);
         basket.getItems().remove(itemToRemove);
+    }
+    @RequestMapping(
+            value = "/updateItem",
+            method = RequestMethod.OPTIONS
+    )
+    public ResponseEntity handleUpdate() {
+        return new ResponseEntity(HttpStatus.OK);
     }
     @RequestMapping(
             value = "/updateItem",
@@ -48,12 +73,26 @@ public class BasketController {
 
     @RequestMapping(
             value = "/deleteBasket",
+            method = RequestMethod.OPTIONS
+    )
+    public ResponseEntity handleDelete() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @RequestMapping(
+            value = "/deleteBasket",
             method = RequestMethod.DELETE
     )
     public void resetBasket(){
         basket = new Basket();
     }
 
+    @RequestMapping(
+            value = "/getBasket",
+            method = RequestMethod.OPTIONS
+    )
+    public ResponseEntity handleGet() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
     @RequestMapping(
             value = "/getBasket",
             method = RequestMethod.GET

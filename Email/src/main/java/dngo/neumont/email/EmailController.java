@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/email")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class EmailController {
 
     @Autowired
@@ -29,6 +32,13 @@ public class EmailController {
     private UserJPA userJPA;
 
 
+    @RequestMapping(
+            value = "/sendEmail",
+            method = RequestMethod.OPTIONS
+    )
+    public ResponseEntity handleDelete() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
     @RequestMapping(path = "/sendEmail/{id}",method = RequestMethod.POST)
     public void sendEmailOfOrder(@RequestBody JsonNode incomingData, @PathVariable Long id) throws Exception{
         if(id > 0){
