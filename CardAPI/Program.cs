@@ -1,15 +1,39 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json; 
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 //builder.Services.AddDbContext<QuestDB>(opt => opt.UseInMemoryDatabase("QuestBoard"));
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+
+        {
+
+            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            policy.WithHeaders("Access-Control-Allow-Origin","origin-list");
+
+        });
+});
 
 var app = builder.Build();
+app.UseCors();
 
 bool properValidation = false;
 
+app.MapGet("/", () => {
+    return "It's Working!";
+});
+
 app.MapPost("/", (Card card) => {
-    DateOnly today = new DateOnly();
+    DateTime today = new DateTime();
+    today = DateTime.Today;
+
+    if ((card.ccNumber == "" || card.ccNumber == null) || (card.CCV == "" || card.CCV == null)) {
+        return false;
+    }
 
     if (properValidation) {
         string checkString = card.ccNumber.Replace(",","").Replace("-","").Replace(" ","");
@@ -41,7 +65,7 @@ app.MapPost("/", (Card card) => {
         return false;
     }
     else {
-        if (card.expirationDate >= today && (card.ccNumber[0].Equals('4') || card.ccNumber[0].Equals('5'))) {
+        if (card.expirationDate.CompareTo(today) >= 0 && (card.ccNumber[0].Equals('4') || card.ccNumber[0].Equals('5'))) {
             return true;
         }
         return false;
@@ -51,14 +75,7 @@ app.MapPost("/", (Card card) => {
 app.Run();
 
 public class Card{
-    public string ccNumber {get; set;}
-    public DateOnly expirationDate {get; set;}
-    public string CCV {get; set;}
-
-    public Card(string _ccNumber, DateOnly _expirationDate, string _CCV)
-    {
-        this.ccNumber = _ccNumber;
-        this.expirationDate = _expirationDate;
-        this.CCV = _CCV;
-    }
+    public string? ccNumber {get; set;}
+    public DateTime expirationDate {get; set;}
+    public string? CCV {get; set;}
 }

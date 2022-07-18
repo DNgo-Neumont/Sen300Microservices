@@ -14,6 +14,124 @@
     <script src="./javascript/quantityButton.js"></script>
 </head>
 <body>
+    <div id="basketWithUser" class="row justify-content-md-center" style = "padding-top: 20px;">
+        <div class="col-3 backgroundDat" style="text-align: center;">
+            User Info:<br>
+            <input id="FName" type="text" placeholder="First Name"><br>
+            <input id="LName" type="text" placeholder="Last Name"><br>
+            <input id="Email" type="email" placeholder="E-mail"><br>
+            <input id="StreetAddress" type="text" placeholder="Street Address"><br>
+            <br>
+            <button id="addUser" class="btn btnColorP">Create Account</button>
+        </div>
+        <div class="col-3 backgroundDat" style="text-align: center;">
+            Credit Card Info:<br>
+            <input id="CCNumber" type="text" placeholder="Credit Card Number"><br>
+            <input id="CCV" type="text" placeholder="CCV"><br>
+            <input id="ExpDate" type="date"><br>
+            <br>
+            <button id="sendData" class="btn btnColorP">Send Card Info</button>
+        </div>
+    </div>
+    <div class="row justify-content-md-center" style = "padding-top: 20px;">
+        <div class="col-3 backgroundDat" style="text-align: center;">
+            <button id="DeliveryTime" class="btn btnColorB">Deliver Item!</button>
+        </div>
+    </div>
     
+    <script>
+        var isValid = 'false';
+        var userVal;
+        var basket;
+
+        const xmlReq = new XMLHttpRequest();
+        var theUrl = "http://localhost:5001/basket/getBasket";
+        xmlReq.open("GET", theUrl);
+        let hostname = location.hostname;
+        console.log(hostname);
+        xmlReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xmlReq.setRequestHeader('Access-Control-Allow-Origin',hostname);
+        xmlReq.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+        xmlReq.send();
+        xmlReq.onload = ()=> {
+            alert(xmlReq.responseText);
+            basket = xmlReq.responseText
+        };
+
+        var buttonSubmit = document.getElementById("sendData");
+        buttonSubmit.addEventListener('click', function(event) {
+            //Credit Card Info
+            var CCNumber = document.getElementById("CCNumber").value;
+            var CCV = document.getElementById("CCV").value;
+            var ExpDate = document.getElementById("ExpDate").value;
+            var d = new Date(ExpDate);
+
+            const request = new XMLHttpRequest(); 
+            var theUrl = "http://localhost:5001/users/addUser/";
+            request.open("POST", theUrl);
+            let hostname = location.hostname;
+            console.log(hostname);
+            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            request.setRequestHeader('Access-Control-Allow-Origin',hostname);
+            request.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+            request.send(JSON.stringify({"fname":FirstName,"lname":LastName,"email":Email,"streetaddress":StreetAdd}));
+            request.onload = ()=> {
+                userVal = JSON.parse(request.responseText)
+            };
+        });
+        var addUser = document.getElementById("addUser");
+        addUser.addEventListener('click', function(event) {
+            var FirstName = document.getElementById("FName").value;
+            var LastName = document.getElementById("LName").value;
+            var Email = document.getElementById("Email").value;
+            var StreetAdd = document.getElementById("StreetAddress").value;
+
+            const request = new XMLHttpRequest(); 
+            var theUrl = "http://localhost:5003/users/addUser/";
+            request.open("POST", theUrl);
+            let hostname = location.hostname;
+            console.log(hostname);
+            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            request.setRequestHeader('Access-Control-Allow-Origin',hostname);
+            request.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+            request.send(JSON.stringify({"fname":FirstName,"lname":LastName,"email":Email,"streetaddress":StreetAdd}));
+            request.onload = ()=> {
+                userVal = JSON.parse(request.responseText)
+            };
+        });
+
+        var deliverStuff = document.getElementById("DeliveryTime");
+        deliverStuff.addEventListener('click', function(event) {
+            if (userVal == null) {
+                alert("Please create a user!");
+            }
+            else {
+                const request = new XMLHttpRequest(); 
+                var theUrl = "http://localhost:5004/email/sendEmail/" + userVal.id;
+                request.open("POST", theUrl);
+                let hostname = location.hostname;
+                console.log(hostname);
+                request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                request.setRequestHeader('Access-Control-Allow-Origin',hostname);
+                request.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+                request.send(JSON.stringify(basket));
+                request.onload = ()=> {
+                    alert("Thank's for shopping smart, an email has been sent to you!")
+                    
+                    const requestDel = new XMLHttpRequest();
+                    theUrl = "http://localhost:5001/basket/deleteBasket";
+                    requestDel.open("DELETE", theUrl);
+                    requestDel.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    requestDel.setRequestHeader('Access-Control-Allow-Origin',hostname);
+                    requestDel.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+                    requestDel.send();
+                    requestDel.onload = ()=> {
+                        console.log("Deleted basket.")
+                    };
+                };
+            }
+        });
+        
+    </script>
 </body>
 </html>
