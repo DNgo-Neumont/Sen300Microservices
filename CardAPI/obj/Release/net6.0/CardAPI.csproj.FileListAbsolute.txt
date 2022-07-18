@@ -24,3 +24,13 @@ C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\obj\Release\net6.0\refin
 C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\obj\Release\net6.0\CardAPI.pdb
 C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\obj\Release\net6.0\CardAPI.genruntimeconfig.cache
 C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\obj\Release\net6.0\ref\CardAPI.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\Steeltoe.Common.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\Steeltoe.Common.Abstractions.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\Steeltoe.Common.Http.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\Steeltoe.Connector.Abstractions.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\Steeltoe.Connector.ConnectorBase.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\Steeltoe.Discovery.Abstractions.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\Steeltoe.Discovery.ClientBase.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\Steeltoe.Discovery.Eureka.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\Steeltoe.Extensions.Configuration.Abstractions.dll
+C:\Users\dlarmore\Documents\Sen300Microservices\CardAPI\bin\Release\net6.0\System.Reflection.MetadataLoadContext.dll

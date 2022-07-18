@@ -1,9 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json; 
+using Steeltoe.Discovery.Client;
+using Steeltoe.Common.Discovery;
+using Steeltoe.Discovery.Eureka;
+using Steeltoe.Discovery;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
+builder.Services.AddDiscoveryClient(builder.Configuration);
 //builder.Services.AddDbContext<QuestDB>(opt => opt.UseInMemoryDatabase("QuestBoard"));
 builder.Services.AddCors(options =>
 {
@@ -26,6 +31,12 @@ bool properValidation = false;
 app.MapGet("/", () => {
     return "It's Working!";
 });
+
+app.MapGet("/test", async (IDiscoveryClient idc) =>
+{
+    return "I got a connection!";
+}
+);
 
 app.MapPost("/", (Card card) => {
     DateTime today = new DateTime();
