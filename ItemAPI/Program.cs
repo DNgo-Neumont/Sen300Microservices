@@ -1,9 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using Steeltoe.Discovery.Client;
+using Steeltoe.Common.Discovery;
+using Steeltoe.Discovery.Eureka;
+using Steeltoe.Discovery;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 //builder.Services.AddDbContext<QuestDB>(opt => opt.UseInMemoryDatabase("QuestBoard"));
-builder.Services.AddDbContext<ItemDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("docker_db2")));
+//docker run --name eureka -d --net netSEN300 -p 8761:8761 steeltoeoss/eureka-server eureka registry run command
+builder.Services.AddDiscoveryClient(builder.Configuration);
+builder.Services.AddDbContext<ItemDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("docker_db1")));
 
 builder.Services.AddCors(options =>
 {
