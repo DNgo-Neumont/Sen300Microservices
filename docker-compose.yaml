@@ -52,6 +52,54 @@ services:
       - redis.c
       - mongo.c
   
+  java-api-basket.1.c:
+    container_name: java-api-basket.1.c
+    build:
+      context: ./Basket/
+      dockerfile: Dockerfile
+    image: java-api-basket.1.c:1
+    ports:
+      - "9503:80"
+    networks:
+      - netSEN300.1
+    depends_on:
+      - sqlserver.c
+      - eureka.c
+      - redis.c
+      - mongo.c
+
+  java-api-email.1.c:
+    container_name: java-api-email.1.c
+    build:
+      context: ./Email/
+      dockerfile: Dockerfile
+    image: java-api-email.1.c:1
+    ports:
+      - "9504:80"
+    networks:
+      - netSEN300.1
+    depends_on:
+      - sqlserver.c
+      - eureka.c
+      - redis.c
+      - mongo.c
+  
+  java-api-users.1.c:
+    container_name: java-api-users.1.c
+    build:
+      context: ./Users/
+      dockerfile: Dockerfile
+    image: java-api-users.1.c
+    ports:
+      - "9505:80"
+    networks:
+      - netSEN300.1
+    depends_on:
+      - sqlserver.c
+      - eureka.c
+      - redis.c
+      - mongo.c
+
   eureka.c:
     container_name: eureka.c
     image: steeltoeoss/eureka-server
