@@ -5,8 +5,8 @@ networks:
     external: false
 
 services:
-  sqlserver.c:
-    container_name: sqlserver.c
+  itemsqldb.c:
+    container_name: itemsqldb.c
     #build:
       #context: ./
       #dockerfile: 3.dockerfile
@@ -18,7 +18,23 @@ services:
     networks:
       - netSEN300.1
     environment:
-      SA_PASSWORD: 'abc123!!23'
+      SA_PASSWORD: 'abc123!!23@'
+      ACCEPT_EULA: 'Y'
+  
+  usersqldb.c:
+    container_name: usersqldb.c
+    #build:
+      #context: ./
+      #dockerfile: 3.dockerfile
+    #image: sqlserver.c:1
+    # the old way when I wasn't using a dockerfile
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - '1435:1433'
+    networks:
+      - netSEN300.1
+    environment:
+      SA_PASSWORD: 'abc123!!23@'
       ACCEPT_EULA: 'Y'
   
   dotnet-api-card.1.c:
