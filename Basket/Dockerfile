@@ -4,6 +4,7 @@ ENV DB_HOST=ItemSQLDB
 ENV DB_PORT=1433
 ENV DB_USER=sa
 ENV DB_PASSWORD=abc123!!@
+ENV EUREKA_NAME=eureka
 
 COPY ./target/Basket-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080

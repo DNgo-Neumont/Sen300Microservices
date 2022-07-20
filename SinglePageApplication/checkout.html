@@ -74,27 +74,23 @@
             request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
             request.setRequestHeader('Access-Control-Allow-Origin',hostname);
             request.setRequestHeader('Access-Control-Allow-Credentials', 'true');
-            request.send(JSON.stringify({"fname":FirstName,"lname":LastName,"email":Email,"streetaddress":StreetAdd}));
+            request.send(JSON.stringify({"fname":document.getElementById("FName").value,"lname":document.getElementById("LName").value,"email":document.getElementById("Email").value,"streetaddress":document.getElementById("StreetAddress").value}));
             request.onload = ()=> {
                 userVal = JSON.parse(request.responseText)
             };
         });
         var addUser = document.getElementById("addUser");
         addUser.addEventListener('click', function(event) {
-            var FirstName = document.getElementById("FName").value;
-            var LastName = document.getElementById("LName").value;
-            var Email = document.getElementById("Email").value;
-            var StreetAdd = document.getElementById("StreetAddress").value;
 
             const request = new XMLHttpRequest(); 
             var theUrl = "http://localhost:5003/users/addUser/";
-            request.open("POST", theUrl);
+            request.open("POST", theUrl, false);
             let hostname = location.hostname;
             console.log(hostname);
             request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
             request.setRequestHeader('Access-Control-Allow-Origin',hostname);
             request.setRequestHeader('Access-Control-Allow-Credentials', 'true');
-            request.send(JSON.stringify({"fname":FirstName,"lname":LastName,"email":Email,"streetaddress":StreetAdd}));
+            request.send(JSON.stringify({"fname":document.getElementById("FName").value,"lname":document.getElementById("LName").value,"email":document.getElementById("Email").value,"streetaddress":document.getElementById("StreetAddress").value}));
             request.onload = ()=> {
                 userVal = JSON.parse(request.responseText)
             };
@@ -108,7 +104,7 @@
             else {
                 const request = new XMLHttpRequest(); 
                 var theUrl = "http://localhost:5004/email/sendEmail/" + userVal.id;
-                request.open("POST", theUrl);
+                request.open("POST", theUrl, false);
                 let hostname = location.hostname;
                 console.log(hostname);
                 request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
