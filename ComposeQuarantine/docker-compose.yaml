@@ -25,10 +25,26 @@ services:
     container_name: dotnet-api-card.1.c
     build:
       context: ./
-      dockerfile: CardAPI.dockerfile
+      dockerfile: CardAPI/CardAPI.dockerfile
     image: dotnet-api-card.1.c:1
     ports:
       - "9501:80"
+    networks:
+      - netSEN300.1
+    depends_on:
+      - sqlserver.c
+      - eureka.c
+      - redis.c
+      - mongo.c
+
+  dotnet-api-item.1.c:
+    container_name: dotnet-api-item.1.c
+    build:
+      context: ./
+      dockerfile: ItemAPI/ItemAPI.dockerfile
+    image: dotnet-api-card.1.c:1
+    ports:
+      - "9502:80"
     networks:
       - netSEN300.1
     depends_on:
