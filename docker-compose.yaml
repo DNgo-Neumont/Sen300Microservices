@@ -5,8 +5,32 @@ networks:
     external: false
 
 services:
-  sqlserver.c:
-    container_name: sqlserver.c
+  eureka.c:
+    container_name: eureka.c
+    image: steeltoeoss/eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - netSEN300.1
+  
+  itemsqldb.c:
+    container_name: itemsqldb.c
+    build:
+      context: ./
+      dockerfile: 3.dockerfile
+    #image: sqlserver.c:1
+    # the old way when I wasn't using a dockerfile
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - '1433:1433'
+    networks:
+      - netSEN300.1
+    environment:
+      SA_PASSWORD: 'abc123!!23'
+      ACCEPT_EULA: 'Y'
+  
+  usersqldb.c:
+    container_name: usersqldb.c
     #build:
       #context: ./
       #dockerfile: 3.dockerfile
@@ -21,37 +45,6 @@ services:
       SA_PASSWORD: 'abc123!!23'
       ACCEPT_EULA: 'Y'
   
-  dotnet-api-card.1.c:
-    container_name: dotnet-api-card.1.c
-    build:
-      context: ./CardAPI/
-      dockerfile: CardAPI.dockerfile
-    image: dotnet-api-card.1.c:1
-    ports:
-      - "9501:80"
-    networks:
-      - netSEN300.1
-    depends_on:
-      - eureka.c
-      - redis.c
-      - mongo.c
-  
-  dotnet-api-item.1.c:
-    container_name: dotnet-api-item.1.c
-    build:
-      context: ./ItemAPI/
-      dockerfile: ItemAPI.dockerfile
-    image: dotnet-api-item.1.c:1
-    ports:
-      - "9502:80"
-    networks:
-      - netSEN300.1
-    depends_on:
-      - sqlserver.c
-      - eureka.c
-      - redis.c
-      - mongo.c
-  
   java-api-basket.1.c:
     container_name: java-api-basket.1.c
     build:
@@ -59,30 +52,12 @@ services:
       dockerfile: Dockerfile
     image: java-api-basket.1.c:1
     ports:
-      - "9503:80"
+      - "9501:80"
     networks:
       - netSEN300.1
     depends_on:
-      - sqlserver.c
+      - itemsqldb.c
       - eureka.c
-      - redis.c
-      - mongo.c
-
-  java-api-email.1.c:
-    container_name: java-api-email.1.c
-    build:
-      context: ./Email/
-      dockerfile: Dockerfile
-    image: java-api-email.1.c:1
-    ports:
-      - "9504:80"
-    networks:
-      - netSEN300.1
-    depends_on:
-      - sqlserver.c
-      - eureka.c
-      - redis.c
-      - mongo.c
   
   java-api-users.1.c:
     container_name: java-api-users.1.c
@@ -91,19 +66,63 @@ services:
       dockerfile: Dockerfile
     image: java-api-users.1.c
     ports:
+      - "9502:80"
+    networks:
+      - netSEN300.1
+    depends_on:
+      - usersqldb.c
+      - eureka.c
+
+  java-api-email.1.c:
+    container_name: java-api-email.1.c
+    build:
+      context: ./Email/
+      dockerfile: Dockerfile
+    image: java-api-email.1.c:1
+    ports:
+      - "9503:80"
+    networks:
+      - netSEN300.1
+    depends_on:
+      - usersqldb.c
+      - eureka.c
+  
+  dotnet-api-card.1.c:
+    container_name: dotnet-api-card.1.c
+    build:
+      context: ./CardAPI/
+      dockerfile: CardAPI.dockerfile
+    image: dotnet-api-card.1.c:1
+    ports:
+      - "9504:80"
+    networks:
+      - netSEN300.1
+    depends_on:
+      - eureka.c
+  
+  dotnet-api-item.1.c:
+    container_name: dotnet-api-item.1.c
+    build:
+      context: ./ItemAPI/
+      dockerfile: ItemAPI.dockerfile
+    image: dotnet-api-item.1.c:1
+    ports:
       - "9505:80"
     networks:
       - netSEN300.1
     depends_on:
-      - sqlserver.c
+      - itemsqldb.c
       - eureka.c
-      - redis.c
-      - mongo.c
-
-  eureka.c:
-    container_name: eureka.c
-    image: steeltoeoss/eureka-server
+  
+  apigateway.c:
+    container_name: apigateway.c
+    build:
+      context: ./GatewayDemo/
+      dockerfile: 2.dockerfile
+    image: apigateway.c:1    
     ports:
-      - "8761:8761"
+      - "8888:8888"
     networks:
-      - netSEN300.1
+      - netSEN300.1      
+    depends_on:
+      - eureka.c
