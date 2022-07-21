@@ -5,6 +5,14 @@ networks:
     external: false
 
 services:
+  eureka.c:
+    container_name: eureka.c
+    image: steeltoeoss/eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - netSEN300.1
+  
   itemsqldb.c:
     container_name: itemsqldb.c
     #build:
@@ -44,14 +52,12 @@ services:
       dockerfile: Dockerfile
     image: java-api-basket.1.c:1
     ports:
-      - "9503:80"
+      - "9501:80"
     networks:
       - netSEN300.1
     depends_on:
       - itemsqldb.c
       - eureka.c
-      - redis.c
-      - mongo.c
   
   java-api-email.1.c:
     container_name: java-api-email.1.c
@@ -60,14 +66,12 @@ services:
       dockerfile: Dockerfile
     image: java-api-email.1.c:1
     ports:
-      - "9504:80"
+      - "9502:80"
     networks:
       - netSEN300.1
     depends_on:
       - usersqldb.c
       - eureka.c
-      - redis.c
-      - mongo.c
   
   java-api-users.1.c:
     container_name: java-api-users.1.c
@@ -76,14 +80,12 @@ services:
       dockerfile: Dockerfile
     image: java-api-users.1.c
     ports:
-      - "9505:80"
+      - "9503:80"
     networks:
       - netSEN300.1
     depends_on:
       - usersqldb.c
       - eureka.c
-      - redis.c
-      - mongo.c
   
   dotnet-api-card.1.c:
     container_name: dotnet-api-card.1.c
@@ -92,13 +94,11 @@ services:
       dockerfile: CardAPI.dockerfile
     image: dotnet-api-card.1.c:1
     ports:
-      - "9501:80"
+      - "9504:80"
     networks:
       - netSEN300.1
     depends_on:
       - eureka.c
-      - redis.c
-      - mongo.c
   
   dotnet-api-item.1.c:
     container_name: dotnet-api-item.1.c
@@ -107,19 +107,22 @@ services:
       dockerfile: ItemAPI.dockerfile
     image: dotnet-api-item.1.c:1
     ports:
-      - "9502:80"
+      - "9505:80"
     networks:
       - netSEN300.1
     depends_on:
       - itemsqldb.c
       - eureka.c
-      - redis.c
-      - mongo.c
-
-  eureka.c:
-    container_name: eureka.c
-    image: steeltoeoss/eureka-server
+  
+  apigateway.c:
+    container_name: apigateway.c
+    build:
+      context: ./GatewayDemo/
+      dockerfile: 2.dockerfile
+    image: apigateway.c:1    
     ports:
-      - "8761:8761"
+      - "8888:8888"
     networks:
-      - netSEN300.1
+      - netSEN300.1      
+    depends_on:
+      - eureka.c

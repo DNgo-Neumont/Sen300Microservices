@@ -32,12 +32,6 @@ app.MapGet("/", () => {
     return "It's Working!";
 });
 
-app.MapGet("/test", async (IDiscoveryClient idc) =>
-{
-    return "I got a connection!";
-}
-);
-
 app.MapPost("/", (Card card) => {
     DateTime today = new DateTime();
     today = DateTime.Today;

@@ -31,13 +31,4 @@ app.UseCors();
 
 app.MapGet("/", () => "Hello World!");
 
-app.MapGet("/testConnection", async (IDiscoveryClient idc) =>
-{
-    //return "this is the root of dotnet-eureka-client";
-    DiscoveryHttpClientHandler _handler = new DiscoveryHttpClientHandler(idc);
-    var client = new HttpClient(_handler, false);
-    return await client.GetStringAsync("http://CARD-API/test") + " more from dotnet-api2";
-}
-);
-
 app.Run();
