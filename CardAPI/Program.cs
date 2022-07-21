@@ -28,11 +28,11 @@ app.UseCors();
 
 bool properValidation = false;
 
-app.MapGet("/", () => {
+app.MapGet("/creditCard/", () => {
     return "It's Working!";
 });
 
-app.MapPost("/", (Card card) => {
+app.MapPost("/creditCard/checkCard", (Card card) => {
     DateTime today = new DateTime();
     today = DateTime.Today;
 
