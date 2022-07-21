@@ -15,9 +15,9 @@ services:
   
   itemsqldb.c:
     container_name: itemsqldb.c
-    build:
-      context: ./
-      dockerfile: 3.dockerfile
+    #build:
+      #context: ./
+      #dockerfile: 3.dockerfile
     #image: sqlserver.c:1
     # the old way when I wasn't using a dockerfile
     image: mcr.microsoft.com/mssql/server:2019-latest
