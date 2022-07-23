@@ -16,35 +16,36 @@ services:
   itemsqldb.c:
     container_name: itemsqldb.c
     build:
-      context: ./
-      dockerfile: 3.dockerfile
+      context: ./itemSqlSetup
+      dockerfile: ItemSQL.dockerfile
     #image: sqlserver.c:1
     # the old way when I wasn't using a dockerfile
-    image: mcr.microsoft.com/mssql/server:2019-latest
+    image: itemsqldb.c
     ports:
       - '1433:1433'
     networks:
       - netSEN300.1
-    environment:
-      SA_PASSWORD: 'abc123!!23'
-      ACCEPT_EULA: 'Y'
+#    environment:
+#      - ACCEPT_EULA=Y
+#      - SA_PASSWORD=\\Secure@Password421
+
   
   usersqldb.c:
     container_name: usersqldb.c
-    #build:
-      #context: ./
-      #dockerfile: 3.dockerfile
+    build:
+      context: ./UserSqlSetup
+      dockerfile: UserSQL.dockerfile
     #image: sqlserver.c:1
     # the old way when I wasn't using a dockerfile
-    image: mcr.microsoft.com/mssql/server:2019-latest
+    image: usersqldb.c
     ports:
       - '1434:1433'
     networks:
       - netSEN300.1
-    environment:
-      SA_PASSWORD: 'abc123!!23'
-      ACCEPT_EULA: 'Y'
-  
+#    environment:
+#      - ACCEPT_EULA=Y
+#      - SA_PASSWORD=\\Secure@Password421
+
   java-api-basket.1.c:
     container_name: java-api-basket.1.c
     build:
