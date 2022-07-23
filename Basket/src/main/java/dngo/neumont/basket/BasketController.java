@@ -1,10 +1,17 @@
 package dngo.neumont.basket;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 @RestController
 @RequestMapping("/basket")
@@ -13,6 +20,8 @@ public class BasketController {
 
     @Autowired
     ItemJPA newItemJpa;
+    @Autowired
+    EurekaClient eurekaClient;
 
     Basket basket = new Basket();
 
@@ -99,6 +108,46 @@ public class BasketController {
     public Basket getBasket(){
         return basket;
     }
+
+    @RequestMapping(
+            value = "/testBasket",
+            method = RequestMethod.OPTIONS
+    )
+    public ResponseEntity handleTest() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @RequestMapping(
+            value = "/testBasket",
+            method = RequestMethod.GET
+    )
+    public String testBasket(){
+        String response = "Response from item service: ";
+        try{
+            System.out.println(eurekaClient.getApplication("item-service").getInstances());
+            InstanceInfo service = eurekaClient.getApplication("item-service").getInstances().get(0);
+
+            String hostname = service.getHostName();
+            int port = service.getPort();
+
+            String urlString = "http://" + hostname + ":" + port + "/itemAPI/test";
+
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while((inputLine = reader.readLine()) != null){
+                content.append(inputLine);
+            }
+            reader.close();
+            response = response + content.toString();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+
 
 
 }
