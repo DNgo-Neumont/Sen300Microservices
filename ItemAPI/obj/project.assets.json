@@ -2980,19 +2980,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dngo\\.nuget\\packages\\": {}
+    "C:\\Users\\dlarmore\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dngo\\OneDrive - Neumont College of Computer Science\\Neumont\\Quarter 8\\SEN300\\Sen300Microservices\\ItemAPI\\ItemAPI.csproj",
+      "projectUniqueName": "C:\\Users\\dlarmore\\Documents\\Sen300Microservices\\ItemAPI\\ItemAPI.csproj",
       "projectName": "ItemAPI",
-      "projectPath": "C:\\Users\\dngo\\OneDrive - Neumont College of Computer Science\\Neumont\\Quarter 8\\SEN300\\Sen300Microservices\\ItemAPI\\ItemAPI.csproj",
-      "packagesPath": "C:\\Users\\dngo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dngo\\OneDrive - Neumont College of Computer Science\\Neumont\\Quarter 8\\SEN300\\Sen300Microservices\\ItemAPI\\obj\\",
+      "projectPath": "C:\\Users\\dlarmore\\Documents\\Sen300Microservices\\ItemAPI\\ItemAPI.csproj",
+      "packagesPath": "C:\\Users\\dlarmore\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dlarmore\\Documents\\Sen300Microservices\\ItemAPI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\dngo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dlarmore\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
