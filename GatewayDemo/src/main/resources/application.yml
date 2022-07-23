@@ -15,23 +15,23 @@ spring:
       routes:
       #only to be touched when new apis need to be added.
       - id: userService
-        uri: lb://USERAPI
+        uri: lb://userAPI
         predicates:
         - Path=/users/**
         
       - id: basketService
-        uri: lb://BASKETAPI
+        uri: lb://basketAPI
         predicates:
         - Path=/basket/**
 
       - id: emailService
-        uri: lb://EMAILAPI
+        uri: lb://emailAPI
         predicates:
         - Path=/email/**
 
 
       - id: itemService
-        uri: lb://ITEM-API
+        uri: lb://ITEM-SERVICE
         predicates:
         - Path=/itemAPI/**
 

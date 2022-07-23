@@ -10,7 +10,7 @@ builder.Services.AddDiscoveryClient(builder.Configuration);
 //builder.Services.AddDbContext<QuestDB>(opt => opt.UseInMemoryDatabase("QuestBoard"));
 //docker run --name eureka -d --net netSEN300 -p 8761:8761 steeltoeoss/eureka-server eureka registry run command
 builder.Services.AddDiscoveryClient(builder.Configuration);
-builder.Services.AddDbContext<ItemDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("docker_db1")));
+builder.Services.AddDbContext<ItemDB>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("docker_db2")));
 
 builder.Services.AddCors(options =>
 {
