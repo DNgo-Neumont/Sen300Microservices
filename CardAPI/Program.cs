@@ -70,7 +70,7 @@ app.MapPost("/creditCard/checkCard", (Card card) => {
         return false;
     }
     else {
-        if (card.expirationDate.CompareTo(today) >= 0 && (card.ccNumber[0].Equals('4') || card.ccNumber[0].Equals('5'))) {
+        if (card.expirationDate.CompareTo(today) >= 0 && ((card.ccNumber[0].Equals('4') || card.ccNumber[0].Equals('5')))) {
             return true;
         }
         return false;
