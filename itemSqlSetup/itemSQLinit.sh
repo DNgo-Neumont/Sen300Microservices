@@ -1,4 +1,5 @@
 #!/bin/bash
+#mandatory change for commit
 for i in {1..100};
 do
     echo "ItemSQLSetup"
