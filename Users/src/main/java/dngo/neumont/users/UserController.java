@@ -29,7 +29,7 @@ public class UserController {
     }
     @RequestMapping(method = RequestMethod.POST,
     path = "/addUser")
-    public void addUserToDatabase(@RequestBody User user){
+    public User addUserToDatabase(@RequestBody User user){
         ExampleMatcher matchOnlyFields = ExampleMatcher.matching()
                 .withIgnorePaths("id").withIncludeNullValues();
         Example<User> userExample = Example.of(user, matchOnlyFields);
@@ -38,6 +38,7 @@ public class UserController {
             userJPA.save(user);
             userJPA.flush();
         }
+        return user;
     }
 
     @RequestMapping(

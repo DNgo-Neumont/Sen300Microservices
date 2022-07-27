@@ -45,13 +45,11 @@
         var basket;
 
         const xmlReq = new XMLHttpRequest();
-        var theUrl = "http://localhost:5001/basket/getBasket";
+        var theUrl = "http://localhost:8888/basket/getBasket";
         xmlReq.open("GET", theUrl);
         let hostname = location.hostname;
         console.log(hostname);
         xmlReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xmlReq.setRequestHeader('Access-Control-Allow-Origin',hostname);
-        xmlReq.setRequestHeader('Access-Control-Allow-Credentials', 'true');
         xmlReq.send();
         xmlReq.onload = ()=> {
             alert(xmlReq.responseText);
@@ -67,13 +65,11 @@
             var d = new Date(ExpDate);
 
             const request = new XMLHttpRequest(); 
-            var theUrl = "http://localhost:5001/users/addUser/";
+            var theUrl = "http://localhost:8888/users/addUser/";
             request.open("POST", theUrl);
             let hostname = location.hostname;
             console.log(hostname);
             request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            request.setRequestHeader('Access-Control-Allow-Origin',hostname);
-            request.setRequestHeader('Access-Control-Allow-Credentials', 'true');
             request.send(JSON.stringify({"fname":document.getElementById("FName").value,"lname":document.getElementById("LName").value,"email":document.getElementById("Email").value,"streetaddress":document.getElementById("StreetAddress").value}));
             request.onload = ()=> {
                 userVal = JSON.parse(request.responseText)
@@ -83,48 +79,59 @@
         addUser.addEventListener('click', function(event) {
 
             const request = new XMLHttpRequest(); 
-            var theUrl = "http://localhost:5003/users/addUser/";
-            request.open("POST", theUrl, false);
+            var theUrl = "http://localhost:8888/users/addUser/";
+            request.open("POST", theUrl);
             let hostname = location.hostname;
             console.log(hostname);
             request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            request.setRequestHeader('Access-Control-Allow-Origin',hostname);
-            request.setRequestHeader('Access-Control-Allow-Credentials', 'true');
             request.send(JSON.stringify({"fname":document.getElementById("FName").value,"lname":document.getElementById("LName").value,"email":document.getElementById("Email").value,"streetaddress":document.getElementById("StreetAddress").value}));
             request.onload = ()=> {
                 userVal = JSON.parse(request.responseText)
+                console.log(userVal);
             };
         });
 
         var deliverStuff = document.getElementById("DeliveryTime");
         deliverStuff.addEventListener('click', function(event) {
+            console.log(userVal);
             if (userVal == null) {
                 alert("Please create a user!");
             }
             else {
                 const request = new XMLHttpRequest(); 
-                var theUrl = "http://localhost:5004/email/sendEmail/" + userVal.id;
+                var theUrl = "http://localhost:8888/email/sendEmail/" + userVal.id;
                 request.open("POST", theUrl, false);
                 let hostname = location.hostname;
+                console.log(basket)
+
+                //Merging both the user data and basket to send off
+                console.log(JSON.parse(basket))
+                let userValString = JSON.stringify(userVal);
+                userValString = userValString.substring(1, userValString.length - 1)
+                console.log(userValString)
+                let requestPayload = "{\"user\":{" + userValString + "}," + basket.substring(1, basket.length)
+                console.log(requestPayload);
+                console.log(JSON.parse(requestPayload));
+
+                requestPayloadJson = JSON.parse(requestPayload);
+                console.log(requestPayloadJson)
                 console.log(hostname);
                 request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                request.setRequestHeader('Access-Control-Allow-Origin',hostname);
-                request.setRequestHeader('Access-Control-Allow-Credentials', 'true');
-                request.send(JSON.stringify(basket));
+                request.send(JSON.stringify(requestPayloadJson));
                 request.onload = ()=> {
-                    alert("Thank's for shopping smart, an email has been sent to you!")
-                    
-                    const requestDel = new XMLHttpRequest();
-                    theUrl = "http://localhost:5001/basket/deleteBasket";
-                    requestDel.open("DELETE", theUrl);
-                    requestDel.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                    requestDel.setRequestHeader('Access-Control-Allow-Origin',hostname);
-                    requestDel.setRequestHeader('Access-Control-Allow-Credentials', 'true');
-                    requestDel.send();
-                    requestDel.onload = ()=> {
-                        console.log("Deleted basket.")
-                    };
                 };
+
+                alert("Thank's for shopping smart, an email has been sent to you!")
+                    
+                const requestDel = new XMLHttpRequest();
+                theUrl = "http://localhost:8888/basket/deleteBasket";
+                requestDel.open("DELETE", theUrl);
+                requestDel.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                requestDel.send();
+                requestDel.onload = ()=> {
+                    console.log("Deleted basket.")
+                };
+
             }
         });
         

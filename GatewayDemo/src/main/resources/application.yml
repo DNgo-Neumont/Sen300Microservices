@@ -12,6 +12,9 @@ spring:
     name: gateway-service-sen300
   cloud:
     gateway:
+      default-filters:
+        #This is to prevent two different cors headers being sent. GOOD LORD SPRING JUST WORK
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       routes:
       #only to be touched when new apis need to be added.
       - id: userService
@@ -40,3 +43,9 @@ spring:
         uri: lb://CARD-API
         predicates:
         - Path=/creditCard/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"

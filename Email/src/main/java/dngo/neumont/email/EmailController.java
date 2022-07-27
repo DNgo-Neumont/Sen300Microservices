@@ -86,14 +86,15 @@ public class EmailController {
 
         body.append("Your order has been processed and is on the way. \n").append("Details are as follows.\n").append("ITEM MANIFEST: \n");
 
-        JsonNode basket = node.get("basket");
+//        JsonNode basket = node.get("basket");
 
-        JsonNode itemList = basket.get("items");
+        JsonNode itemList = node.get("items");
 
 //        System.out.println(itemList);
 //        System.out.println(itemList.toString());
 //        System.out.println(itemList.toPrettyString());
 
+        System.out.println(itemList.toString());
         ObjectMapper objectMapper = new ObjectMapper();
         TypeFactory typeFactory = objectMapper.getTypeFactory();
         List<JsonNode> items = objectMapper.readValue(itemList.toString(), typeFactory.constructCollectionType(List.class, JsonNode.class));

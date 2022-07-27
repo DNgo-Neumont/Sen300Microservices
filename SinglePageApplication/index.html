@@ -38,7 +38,7 @@
                 var productList = document.getElementById("productList");
 
                 const request = new XMLHttpRequest();
-                    request.open("GET","http://localhost:5000/itemAPI/getInventory", true);
+                    request.open("GET","http://localhost:8888/itemAPI/getInventory", true);
                     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
                     request.send();
                     request.onload = () => {
@@ -62,32 +62,25 @@
                             var productDescription = document.createElement("div");
                             productContent.innerHTML = "";
 
-                            var productQuanityButton = document.createElement("div")
-                            productQuanityButton.classList.add("col");
-                            productQuanityButton.innerHTML = `
-                                <div class="input-group">
-                                    <input type="button" class="quantity-left-minus btn btn-number btnColorP"  data-type="minus" data-field="">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
-                                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="0" min="1" max="100">
-                                    <input type="button" class="quantity-right-plus btn btn-number btnColorP" data-type="plus" data-field="">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
+                            var productQuantityButton = document.createElement("div")
+                            productQuantityButton.classList.add("col");
+                            productQuantityButton.innerHTML = `
+                            
+                                    <input type="text" label="quantity" id="quantity" name="quantity" class="form-control input-number" value="0" min="1" max="100">
                             `
 
                             var buttonCheckout = document.createElement("div")
                             buttonCheckout.classList.add("col");
                             buttonCheckout.style = "padding-top: 10px;"
                             buttonCheckout.innerHTML += `
-                            <button type="button" class="add-quanity btn btnColorB" data-type="plus" data-field="">
+                            <button type="button" class="add-quantity btn btnColorB" data-type="plus" data-field="">
                                 <b>Add To Cart   </b><i class="fa fa-shopping-cart"></i>
                             </button>
                             `
 
                             productContent.appendChild(productName);
                             productContent.appendChild(productDescription);
-                            productContent.appendChild(productQuanityButton);
+                            productContent.appendChild(productQuantityButton);
                             productContent.appendChild(buttonCheckout);
 
 
@@ -102,50 +95,26 @@
             }
 
             function createButtons() {
-                var decreaseQuantity = document.getElementsByClassName("quantity-left-minus");
-                var increaseQuantity = document.getElementsByClassName("quantity-right-plus");
-                var addToBasket = document.getElementsByClassName("add-quanity");
-
-                for (var i = 0; i < increaseQuantity.length; i++) {
-                    var buttonInc = increaseQuantity[i];
-                    buttonInc.addEventListener('click', function(event) {
-                        var buttonClickedInc = event.target;
-                        var inputInc = buttonClickedInc.parentElement.parentElement.children[1];
-                        var inputValueInc = parseInt(inputInc.value);
-                        inputInc.value = parseInt(inputValueInc) + 1;
-                    });
-                }
-                for (var i = 0; i < decreaseQuantity.length; i++) {
-                    var buttonDesc = decreaseQuantity[i];
-                    buttonDesc.addEventListener('click', function(event) {
-                        var buttonClickedDesc = event.target;
-                        var inputDesc = buttonClickedDesc.parentElement.parentElement.children[1];
-                        console.log(inputDesc);
-                        var inputValueDesc = parseInt(inputDesc.value);
-                        if (inputValueDesc > 0) {
-                            inputDesc.value = inputValueDesc - 1;
-                        }
-                    })
-                }
+                var addToBasket = document.getElementsByClassName("add-quantity");
+                var quantity = document.getElementById("quantity");
+                console.log(quantity.value);
                 for (var i = 0; i < addToBasket.length; i++) {
                     var buttonAddToCart = addToBasket[i];
                     buttonAddToCart.addEventListener('click', async function(event) {
                         var buttonClickedCart = event.target;
                         console.log(buttonClickedCart.parentElement.parentElement.parentElement)
-                        console.log(buttonClickedCart.parentElement.parentElement.parentElement.children[2])
+                        console.log(buttonClickedCart.parentElement.parentElement.parentElement.children[0])
                         var idProduct = buttonClickedCart.parentElement.parentElement.parentElement.id;
-                        var quantityProduct = buttonClickedCart.parentElement.parentElement.parentElement.children[2];
+                        var quantityProduct = buttonClickedCart.parentElement.parentElement.parentElement.children[0];
                         
                         const request = new XMLHttpRequest(); 
-			            var theUrl = "http://localhost:5001/basket/addItem";
+			            var theUrl = "http://localhost:8888/basket/addItem";
 			            request.open("PUT", theUrl, false);
                         let hostname = location.hostname;
                         console.log(hostname);
                         console.log(idProduct);
 			            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                        request.setRequestHeader('Access-Control-Allow-Origin',hostname);
-			            request.setRequestHeader('Access-Control-Allow-Credentials', 'true');
-                        request.send(JSON.stringify({"id": parseInt(idProduct), "quantity": parseInt(quantityProduct)}));
+                        request.send(JSON.stringify({"id": parseInt(idProduct), "quantity": parseInt(quantity.value)}));
 			            request.onload = ()=> {
 				            console.log(request.responseText);
 				            document.querySelector("#myResponse").innerHTML = request.responseText;
